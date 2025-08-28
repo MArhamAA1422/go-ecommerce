@@ -40,3 +40,13 @@ type Product struct {
 	ID int `json:"id"`
 }
 ```
+
+## Response Header
+- CORS error handle
+```go
+w.Header().Set("Access-Control-Allow-Origin", "*")
+```
+- Content type (by default: text)
+```go
+w.Header().Set("Content-Type", "application/json")
+```

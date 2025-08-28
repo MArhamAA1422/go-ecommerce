@@ -8,15 +8,17 @@ import (
 
 type Product struct {
 	ID int `json:"id"`
-	Title string
-	Description string
-	Price float64
-	ImgUrl string
+	Title string `json:"title"`
+	Description string `json:"description"`
+	Price float64 `json:"price"`
+	ImgUrl string `json:"imageUrl"`
 }
 
 var productList []Product
 
 func getProducts(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
 	if r.Method != http.MethodGet {
 		http.Error(w, "Please give GET request", 400)
 		return
