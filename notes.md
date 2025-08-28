@@ -62,6 +62,11 @@ func createProduct(w http.RequestWriter, r *http.Request) {
 }
 ```
 
+```go
+// From go1.22+
+mux.Handle("GET /about",http.HandlerFunc(About))
+```
+
 ## POST security
 ```go
 w.Header().Set("Access-Control-Allow-Methods", "POST")
@@ -74,3 +79,17 @@ if r.Method == "OPTIONS" {  // frontend can request both OPTIONS and POST, in th
 
 w.WriteHeader(201)  // status code: resource create
 ```
+
+## OPTIONS
+- http method like GET, POST
+- Do: Preflight request
+
+## Preflight Req
+- only browser does
+- Unknown origin in request Headers
+    - complex request
+    - custom Headers
+- for such complex headers browser sends preflight request to server first with same API (say, GET request from frontend)
+    - is permissible check
+- response: 200 OK, or CORS error
+- browser sends using OPTIONS
