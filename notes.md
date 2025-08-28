@@ -22,9 +22,21 @@ func getProducts(w http.RequestWriter, r *http.Request) {
         return;
     }
 
-    encoder := json.NewEncoder(w)
+    encoder := json.NewEncoder(w)  // json is a package
 	encoder.Encode(productList)  // productList: a slice of Product struct
 }
 
 mux.HandleFunc("/products", getProducts);
+```
+
+### `[]` = list, `{}` = object
+
+## JSON encoder customization
+- json tag
+- we want to pass "id" not "ID"
+- json package can only access prop starting with uppercase letter
+```go
+type Product struct {
+	ID int `json:"id"`
+}
 ```
