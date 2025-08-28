@@ -3,6 +3,7 @@
     - rules
 - `GET, POST, PUT, PATCH, DELETE`
     - world's 99% applications were built by these 5
+    - POST: Header + Body, GET: only Header
 - status code
     - 200: OK
     - 201: resource create in server
@@ -14,6 +15,8 @@
 ## Handler function
 - r: request from frontend to backend with info
 - w: response from backend
+- encoder
+- decoder
 
 ```go
 func getProducts(w http.RequestWriter, r *http.Request) {
@@ -27,6 +30,15 @@ func getProducts(w http.RequestWriter, r *http.Request) {
 }
 
 mux.HandleFunc("/products", getProducts);
+```
+
+```go
+func createProduct(w http.RequestWriter, r *http.Request) {
+    var newProduct Product
+
+    decoder := json.NewDecoder(r.Body)
+    err := decoder.Decode(&newProduct)
+}
 ```
 
 ### `[]` = list, `{}` = object
