@@ -11,6 +11,27 @@
     - 404: not found
     - 500: internal server error
 
+### `[]` = list, `{}` = object
+
+## JSON encoder customization
+- json tag
+- we want to pass "id" not "ID"
+- json package can only access prop starting with uppercase letter
+```go
+type Product struct {
+	ID int `json:"id"`
+}
+```
+
+## Response Header
+- CORS error handle
+```go
+w.Header().Set("Access-Control-Allow-Origin", "*")
+```
+- Content type (by default: text)
+```go
+w.Header().Set("Content-Type", "application/json")
+```
 
 ## Handler function
 - r: request from frontend to backend with info
@@ -41,24 +62,15 @@ func createProduct(w http.RequestWriter, r *http.Request) {
 }
 ```
 
-### `[]` = list, `{}` = object
-
-## JSON encoder customization
-- json tag
-- we want to pass "id" not "ID"
-- json package can only access prop starting with uppercase letter
+## POST security
 ```go
-type Product struct {
-	ID int `json:"id"`
+w.Header().Set("Access-Control-Allow-Methods", "POST")
+w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+if r.Method == "OPTIONS" {  // frontend can request both OPTIONS and POST, in that case ignore OPTIONS
+    w.WriteHeader(200)
+    return
 }
-```
 
-## Response Header
-- CORS error handle
-```go
-w.Header().Set("Access-Control-Allow-Origin", "*")
-```
-- Content type (by default: text)
-```go
-w.Header().Set("Content-Type", "application/json")
+w.WriteHeader(201)  // status code: resource create
 ```
