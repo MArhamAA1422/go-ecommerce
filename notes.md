@@ -13,6 +13,12 @@
 
 ### `[]` = list, `{}` = object
 
+## Any argument
+- can be struct, int, string, etc.
+```go
+data interface {}
+```
+
 ## JSON encoder customization
 - json tag
 - we want to pass "id" not "ID"
